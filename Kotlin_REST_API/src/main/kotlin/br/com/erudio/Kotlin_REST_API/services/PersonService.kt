@@ -1,6 +1,7 @@
 package br.com.erudio.Kotlin_REST_API.services
 
 import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
+import br.com.erudio.Kotlin_REST_API.data.dto.v2.PersonDTO as PersonDTOV2
 import br.com.erudio.Kotlin_REST_API.exceptions.ResourceNotFoundException
 import br.com.erudio.Kotlin_REST_API.mapper.DozerMapper
 import br.com.erudio.Kotlin_REST_API.models.Person
@@ -38,6 +39,12 @@ class PersonService {
         logger.info("Creating one person with name ${person.firstName}!")
         val entity: Person = DozerMapper.parseObject(person, Person::class.java)
         return DozerMapper.parseObject(repository.save(entity), PersonDTO::class.java)
+    }
+
+    fun createV2(person: PersonDTOV2): PersonDTOV2 {
+        logger.info("Creating one person with name ${person.firstName}!")
+        val entity: Person = DozerMapper.parseObject(person, Person::class.java)
+        return DozerMapper.parseObject(repository.save(entity), PersonDTOV2::class.java)
     }
 
     fun update(person: PersonDTO): PersonDTO {
