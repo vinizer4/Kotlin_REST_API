@@ -4,9 +4,7 @@ import br.com.erudio.Kotlin_REST_API.exceptions.ResourceNotFoundException
 import br.com.erudio.Kotlin_REST_API.models.Person
 import br.com.erudio.Kotlin_REST_API.repositories.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
-import java.util.concurrent.atomic.AtomicLong
 import java.util.logging.Logger
 
 @Service
@@ -36,7 +34,7 @@ class PersonService {
         return repository.save(person)
     }
 
-    fun update(person: Person) {
+    fun update(person: Person): Person {
         logger.info("Updating one person with ID ${person.id}!")
         val entity: Person = repository.findById(person.id)
                 .orElseThrow {
@@ -47,6 +45,8 @@ class PersonService {
         entity.lastName = person.lastName
         entity.address = person.address
         entity.gender = person.gender
+
+        return repository.save(entity)
     }
 
     fun delete(id: Long) {
