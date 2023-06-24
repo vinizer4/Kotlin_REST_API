@@ -1,6 +1,7 @@
 package br.com.erudio.Kotlin_REST_API.models
 
 import jakarta.persistence.*
+import java.util.*
 
 @Entity
 @Table(name = "person")
@@ -21,4 +22,7 @@ data class Person (
 
         @Column(nullable = false, length = 20)
         var gender: String = "",
+
+        @Column(name = "birth_day",nullable = true)
+        var birthDay: Date? = null
 )
