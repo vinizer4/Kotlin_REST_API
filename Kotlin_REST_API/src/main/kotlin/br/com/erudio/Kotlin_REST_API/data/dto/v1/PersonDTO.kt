@@ -1,4 +1,4 @@
-package br.com.erudio.Kotlin_REST_API.data.dto
+package br.com.erudio.Kotlin_REST_API.data.dto.v1
 
 class PersonDTO (
         var id: Long = 0,
