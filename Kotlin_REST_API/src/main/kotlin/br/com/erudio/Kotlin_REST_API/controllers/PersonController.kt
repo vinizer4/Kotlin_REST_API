@@ -1,6 +1,7 @@
 package br.com.erudio.Kotlin_REST_API.controllers
 
 import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
+import br.com.erudio.Kotlin_REST_API.data.dto.v2.PersonDTO as PersonDTOV2
 import br.com.erudio.Kotlin_REST_API.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -35,12 +36,28 @@ class PersonController {
         return service.create(person)
     }
 
+    @PostMapping(value = ["/v2"],
+            consumes = [MediaType.APPLICATION_JSON_VALUE],
+            produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun createV2(@RequestBody person: PersonDTOV2): PersonDTOV2 {
+        return service.createV2(person)
+    }
+
     @PutMapping(
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun update(@RequestBody person: PersonDTO): PersonDTO {
         return service.update(person)
+    }
+
+    @PutMapping(value = ["/v2"],
+            consumes = [MediaType.APPLICATION_JSON_VALUE],
+            produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun updateV2(@RequestBody person: PersonDTOV2): PersonDTOV2 {
+        return service.updateV2(person)
     }
 
     @DeleteMapping(
