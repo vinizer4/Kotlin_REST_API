@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/kotlin_rest_course?useTimezone=true&serverTime
     username: root
-    password: admin123
+    password: admin
   jpa:
     hibernate:
       ddl-auto: update
