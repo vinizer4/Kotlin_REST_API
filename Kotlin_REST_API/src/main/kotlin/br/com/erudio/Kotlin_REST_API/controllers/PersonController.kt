@@ -1,14 +1,11 @@
 package br.com.erudio.Kotlin_REST_API.controllers
 
-import br.com.erudio.Kotlin_REST_API.models.Person
+import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
 import br.com.erudio.Kotlin_REST_API.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/person")
@@ -17,46 +14,41 @@ class PersonController {
     @Autowired
     private lateinit var service: PersonService
 
-    @RequestMapping(method = [RequestMethod.GET],
-            produces = [MediaType.APPLICATION_JSON_VALUE]
-    )
-    fun findAll(): List<Person> {
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun findAll(): List<PersonDTO> {
         return service.findAll()
     }
 
-    @RequestMapping(
+    @GetMapping(
             value = ["/{id}"],
-            method = [RequestMethod.GET],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findById(@PathVariable(value="id") id: Long): Person {
+    fun findById(@PathVariable(value="id") id: Long): PersonDTO {
         return service.findById(id)
     }
 
-    @RequestMapping(
-            method = [RequestMethod.POST],
+    @PostMapping(
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun create(@RequestBody person: Person): Person {
+    fun create(@RequestBody person: PersonDTO): PersonDTO {
         return service.create(person)
     }
 
-    @RequestMapping(
-            method = [RequestMethod.PUT],
+    @PutMapping(
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun update(@RequestBody person: Person): Person {
+    fun update(@RequestBody person: PersonDTO): PersonDTO {
         return service.update(person)
     }
 
-    @RequestMapping(
+    @DeleteMapping(
             value = ["/{id}"],
-            method = [RequestMethod.DELETE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun delete(@PathVariable(value="id") id: Long) {
+    fun delete(@PathVariable(value="id") id: Long): ResponseEntity<*> {
         service.delete(id)
+        return ResponseEntity.noContent().build<Any>()
     }
 }
