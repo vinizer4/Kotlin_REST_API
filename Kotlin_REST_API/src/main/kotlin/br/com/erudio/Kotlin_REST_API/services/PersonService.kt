@@ -1,6 +1,8 @@
 package br.com.erudio.Kotlin_REST_API.services
 
+import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
 import br.com.erudio.Kotlin_REST_API.exceptions.ResourceNotFoundException
+import br.com.erudio.Kotlin_REST_API.mapper.DozerMapper
 import br.com.erudio.Kotlin_REST_API.models.Person
 import br.com.erudio.Kotlin_REST_API.repositories.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,26 +17,30 @@ class PersonService {
 
     private val logger = Logger.getLogger(PersonService::class.java.name)
 
-    fun findAll(): List<Person> {
+    fun findAll(): List<PersonDTO> {
         logger.info("Finding all people!")
-        return repository.findAll()
+        val persons = repository.findAll()
+        return DozerMapper.parseListObjects(persons, PersonDTO::class.java)
     }
 
-    fun findById(id: Long): Person {
+    fun findById(id: Long): PersonDTO {
         logger.info("Finding one person!")
 
-        return repository.findById(id).orElseThrow {
+        val person = repository.findById(id).orElseThrow {
             ResourceNotFoundException(
                     "No records found for this ID!")
         }
+
+        return DozerMapper.parseObject(person, PersonDTO::class.java)
     }
 
-    fun create(person: Person): Person {
+    fun create(person: PersonDTO): PersonDTO {
         logger.info("Creating one person with name ${person.firstName}!")
-        return repository.save(person)
+        val entity: Person = DozerMapper.parseObject(person, Person::class.java)
+        return DozerMapper.parseObject(repository.save(entity), PersonDTO::class.java)
     }
 
-    fun update(person: Person): Person {
+    fun update(person: PersonDTO): PersonDTO {
         logger.info("Updating one person with ID ${person.id}!")
         val entity: Person = repository.findById(person.id)
                 .orElseThrow {
@@ -46,7 +52,7 @@ class PersonService {
         entity.address = person.address
         entity.gender = person.gender
 
-        return repository.save(entity)
+        return DozerMapper.parseObject(repository.save(entity), PersonDTO::class.java)
     }
 
     fun delete(id: Long) {
