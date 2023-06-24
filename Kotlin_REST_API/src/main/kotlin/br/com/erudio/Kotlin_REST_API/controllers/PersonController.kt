@@ -52,6 +52,14 @@ class PersonController {
         return service.update(person)
     }
 
+    @PutMapping(value = ["/v2"],
+            consumes = [MediaType.APPLICATION_JSON_VALUE],
+            produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun updateV2(@RequestBody person: PersonDTOV2): PersonDTOV2 {
+        return service.updateV2(person)
+    }
+
     @DeleteMapping(
             value = ["/{id}"],
             produces = [MediaType.APPLICATION_JSON_VALUE]
