@@ -1,19 +1,11 @@
 package br.com.erudio.Kotlin_REST_API.controllers
 
-import br.com.erudio.Kotlin_REST_API.models.Person
+import br.com.erudio.Kotlin_REST_API.data.dto.PersonDTO
 import br.com.erudio.Kotlin_REST_API.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/person")
@@ -23,7 +15,7 @@ class PersonController {
     private lateinit var service: PersonService
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun findAll(): List<Person> {
+    fun findAll(): List<PersonDTO> {
         return service.findAll()
     }
 
@@ -31,7 +23,7 @@ class PersonController {
             value = ["/{id}"],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun findById(@PathVariable(value="id") id: Long): Person {
+    fun findById(@PathVariable(value="id") id: Long): PersonDTO {
         return service.findById(id)
     }
 
@@ -39,7 +31,7 @@ class PersonController {
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun create(@RequestBody person: Person): Person {
+    fun create(@RequestBody person: PersonDTO): PersonDTO {
         return service.create(person)
     }
 
@@ -47,7 +39,7 @@ class PersonController {
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun update(@RequestBody person: Person): Person {
+    fun update(@RequestBody person: PersonDTO): PersonDTO {
         return service.update(person)
     }
 
