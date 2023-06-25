@@ -18,3 +18,6 @@ spring-doc:
     - /api/**
   swagger-ui:
     use-root-path: true
+logging:
+  level:
+    org.flywaydb: DEBUG
