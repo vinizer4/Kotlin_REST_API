@@ -9,6 +9,7 @@ import org.springframework.hateoas.RepresentationModel
 @JsonPropertyOrder("id", "address", "first_name", "last_name", "gender")
 class PersonDTO (
         @Mapping("id")
+        @field:JsonProperty("id")
         var key: Long = 0,
         @field:JsonProperty("first_name")
         var firstName: String = "",
