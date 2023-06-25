@@ -2,6 +2,7 @@ package br.com.erudio.Kotlin_REST_API.services
 
 import br.com.erudio.Kotlin_REST_API.controllers.v1.PersonControllerV1
 import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
+import br.com.erudio.Kotlin_REST_API.exceptions.RequiredObjectIsNullException
 import br.com.erudio.Kotlin_REST_API.data.dto.v2.PersonDTO as PersonDTOV2
 import br.com.erudio.Kotlin_REST_API.exceptions.ResourceNotFoundException
 import br.com.erudio.Kotlin_REST_API.mapper.DozerMapper
@@ -51,7 +52,8 @@ class PersonService {
         return personDTO
     }
 
-    fun create(person: PersonDTO): PersonDTO {
+    fun create(person: PersonDTO?): PersonDTO {
+        if (person == null) throw RequiredObjectIsNullException()
         logger.info("Creating one person with name ${person.firstName}!")
         val entity: Person = DozerMapper.parseObject(person, Person::class.java)
         val personDTO: PersonDTO = DozerMapper.parseObject(repository.save(entity), PersonDTO::class.java)
@@ -60,7 +62,8 @@ class PersonService {
         return personDTO
     }
 
-    fun createV2(person: PersonDTOV2): PersonDTOV2 {
+    fun createV2(person: PersonDTOV2?): PersonDTOV2 {
+        if (person == null) throw RequiredObjectIsNullException()
         logger.info("Creating one person with name ${person.firstName}!")
         val entity: Person = mapper.mapVOToEntity(person)
         val personDTO: PersonDTOV2 = mapper.mapEntityToVO(repository.save(entity))
@@ -69,7 +72,8 @@ class PersonService {
         return personDTO
     }
 
-    fun update(person: PersonDTO): PersonDTO {
+    fun update(person: PersonDTO?): PersonDTO {
+        if (person == null) throw RequiredObjectIsNullException()
         logger.info("Updating one person with ID ${person.key}!")
         val entity: Person = repository.findById(person.key)
                 .orElseThrow {
