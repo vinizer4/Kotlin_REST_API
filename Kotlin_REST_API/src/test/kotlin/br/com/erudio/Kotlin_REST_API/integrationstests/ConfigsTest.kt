@@ -1,4 +1,4 @@
-package br.com.erudio.Kotlin_REST_API
+package br.com.erudio.Kotlin_REST_API.integrationstests
 
 object ConfigsTest {
 
