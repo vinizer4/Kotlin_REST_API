@@ -1,4 +1,4 @@
-package br.com.erudio.Kotlin_REST_API.controllers
+package br.com.erudio.Kotlin_REST_API.controllers.v2
 
 import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
 import br.com.erudio.Kotlin_REST_API.data.dto.v2.PersonDTO as PersonDTOV2
@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/person")
-class PersonController {
+@RequestMapping("/api/person/v2")
+class PersonControllerV2 {
 
     @Autowired
     private lateinit var service: PersonService
@@ -28,28 +28,12 @@ class PersonController {
         return service.findById(id)
     }
 
-    @PostMapping(
-            consumes = [MediaType.APPLICATION_JSON_VALUE],
-            produces = [MediaType.APPLICATION_JSON_VALUE]
-    )
-    fun create(@RequestBody person: PersonDTO): PersonDTO {
-        return service.create(person)
-    }
-
     @PostMapping(value = ["/v2"],
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun createV2(@RequestBody person: PersonDTOV2): PersonDTOV2 {
         return service.createV2(person)
-    }
-
-    @PutMapping(
-            consumes = [MediaType.APPLICATION_JSON_VALUE],
-            produces = [MediaType.APPLICATION_JSON_VALUE]
-    )
-    fun update(@RequestBody person: PersonDTO): PersonDTO {
-        return service.update(person)
     }
 
     @PutMapping(value = ["/v2"],
