@@ -28,7 +28,7 @@ class PersonControllerV2 {
         return service.findById(id)
     }
 
-    @PostMapping(value = ["/v2"],
+    @PostMapping(
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
@@ -36,7 +36,7 @@ class PersonControllerV2 {
         return service.createV2(person)
     }
 
-    @PutMapping(value = ["/v2"],
+    @PutMapping(
             consumes = [MediaType.APPLICATION_JSON_VALUE],
             produces = [MediaType.APPLICATION_JSON_VALUE]
     )
