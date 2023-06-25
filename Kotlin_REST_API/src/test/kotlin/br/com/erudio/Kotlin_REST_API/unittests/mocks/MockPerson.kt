@@ -1,4 +1,4 @@
-package br.com.erudio.Kotlin_REST_API.unittests.mapper.mocks
+package br.com.erudio.Kotlin_REST_API.unittests.mocks
 
 import java.util.ArrayList
 import br.com.erudio.Kotlin_REST_API.data.dto.v1.PersonDTO
