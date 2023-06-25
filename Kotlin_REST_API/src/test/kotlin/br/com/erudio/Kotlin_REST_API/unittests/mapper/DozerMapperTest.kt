@@ -1,6 +1,6 @@
 package br.com.erudio.Kotlin_REST_API.unittests.mapper
 
-import br.com.erudio.Kotlin_REST_API.unittests.mapper.mocks.MockPerson
+import br.com.erudio.Kotlin_REST_API.unittests.mocks.MockPerson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

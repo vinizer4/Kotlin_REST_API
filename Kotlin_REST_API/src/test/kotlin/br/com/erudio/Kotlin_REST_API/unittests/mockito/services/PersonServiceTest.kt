@@ -1,9 +1,9 @@
-package br.com.erudio.Kotlin_REST_API.mockito.services
+package br.com.erudio.Kotlin_REST_API.unittests.mockito.services
 
 import br.com.erudio.Kotlin_REST_API.exceptions.RequiredObjectIsNullException
 import br.com.erudio.Kotlin_REST_API.repositories.PersonRepository
 import br.com.erudio.Kotlin_REST_API.services.PersonService
-import br.com.erudio.Kotlin_REST_API.unittests.mapper.mocks.MockPerson
+import br.com.erudio.Kotlin_REST_API.unittests.mocks.MockPerson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
