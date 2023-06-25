@@ -1,19 +1,21 @@
 package br.com.erudio.unittests.mockito.services
 
 import br.com.erudio.exceptions.RequiredObjectIsNullException
-import br.com.erudio.repositories.PersonRepository
+import br.com.erudio.repository.PersonRepository
 import br.com.erudio.services.PersonService
 import br.com.erudio.unittests.mocks.MockPerson
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito
+
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.*
@@ -38,7 +40,7 @@ internal class PersonServiceTest {
     @Test
     fun findAll() {
         val list = inputObject.mockEntityList()
-        Mockito.`when`(repository.findAll()).thenReturn(list)
+        `when`(repository.findAll()).thenReturn(list)
 
         val persons = service.findAll()
 
@@ -83,7 +85,7 @@ internal class PersonServiceTest {
     fun findById() {
         val person = inputObject.mockEntity(1)
         person.id = 1
-        Mockito.`when`(repository.findById(1)).thenReturn(Optional.of(person))
+        `when`(repository.findById(1)).thenReturn(Optional.of(person))
 
         val result = service.findById(1)
 
@@ -104,7 +106,7 @@ internal class PersonServiceTest {
         val persisted = entity.copy()
         persisted.id = 1
 
-        Mockito.`when`(repository.save(entity)).thenReturn(persisted)
+        `when`(repository.save(entity)).thenReturn(persisted)
 
         val vo = inputObject.mockVO(1)
         val result = service.create(vo)
@@ -122,8 +124,8 @@ internal class PersonServiceTest {
     @Test
     fun createWithNullPerson() {
         val exception: Exception = assertThrows(
-                RequiredObjectIsNullException::class.java
-        ) { service.create(null) }
+            RequiredObjectIsNullException::class.java
+        ) {service.create(null)}
 
         val expectedMessage = "It is not allowed to persist a null object!"
         val actualMessage = exception.message
@@ -137,8 +139,8 @@ internal class PersonServiceTest {
         val persisted = entity.copy()
         persisted.id = 1
 
-        Mockito.`when`(repository.findById(1)).thenReturn(Optional.of(entity))
-        Mockito.`when`(repository.save(entity)).thenReturn(persisted)
+        `when`(repository.findById(1)).thenReturn(Optional.of(entity))
+        `when`(repository.save(entity)).thenReturn(persisted)
 
         val vo = inputObject.mockVO(1)
         val result = service.update(vo)
@@ -156,8 +158,8 @@ internal class PersonServiceTest {
     @Test
     fun updateWithNullPerson() {
         val exception: Exception = assertThrows(
-                RequiredObjectIsNullException::class.java
-        ) { service.update(null) }
+            RequiredObjectIsNullException::class.java
+        ) {service.update(null)}
 
         val expectedMessage = "It is not allowed to persist a null object!"
         val actualMessage = exception.message
@@ -167,7 +169,7 @@ internal class PersonServiceTest {
     @Test
     fun delete() {
         val entity = inputObject.mockEntity(1)
-        Mockito.`when`(repository.findById(1)).thenReturn(Optional.of(entity))
+        `when`(repository.findById(1)).thenReturn(Optional.of(entity))
         service.delete(1)
     }
 }

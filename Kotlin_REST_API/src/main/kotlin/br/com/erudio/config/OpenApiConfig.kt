@@ -11,21 +11,17 @@ class OpenApiConfig {
 
     @Bean
     fun customOpenApi(): OpenAPI {
-
-
         return OpenAPI()
-                .info(
-                        Info()
-                                .title("RESTful API With Kotlin and Spring Boot")
-                                .version("v1")
-                                .description("Some description about your API")
-                                .termsOfService("")
-                                .license(
-                                        License().name("Apache 2.0")
-                                                .url("")
-                                )
-                )
-
-
+            .info(
+                Info()
+                    .title("RESTful API with Kotlin 1.8.0 and Spring Boot 3.0.1")
+                    .version("v1")
+                    .description("Some description about your API.")
+                    .termsOfService("https://pub.erudio.com.br/meus-cursos")
+                    .license(
+                        License().name("Apache 2.0")
+                            .url("https://pub.erudio.com.br/meus-cursos")
+                    )
+            )
     }
 }

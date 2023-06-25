@@ -1,15 +1,15 @@
 package br.com.erudio.unittests.mocks
 
 import java.util.ArrayList
-import br.com.erudio.data.dto.v1.PersonDTO
-import br.com.erudio.models.Person
+import br.com.erudio.data.vo.v1.PersonVO
+import br.com.erudio.model.Person
 
 class MockPerson {
     fun mockEntity(): Person {
         return mockEntity(0)
     }
 
-    fun mockVO(): PersonDTO {
+    fun mockVO(): PersonVO {
         return mockVO(0)
     }
 
@@ -21,8 +21,8 @@ class MockPerson {
         return persons
     }
 
-    fun mockVOList(): ArrayList<PersonDTO> {
-        val persons: ArrayList<PersonDTO> = ArrayList()
+    fun mockVOList(): ArrayList<PersonVO> {
+        val persons: ArrayList<PersonVO> = ArrayList()
         for (i in 0..13) {
             persons.add(mockVO(i))
         }
@@ -39,8 +39,8 @@ class MockPerson {
         return person
     }
 
-    fun mockVO(number: Int): PersonDTO {
-        val person = PersonDTO()
+    fun mockVO(number: Int): PersonVO {
+        val person = PersonVO()
         person.address = "Address Test$number"
         person.firstName = "First Name Test$number"
         person.gender = if (number % 2 == 0) "Male" else "Female"

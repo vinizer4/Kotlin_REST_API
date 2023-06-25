@@ -1,6 +1,6 @@
 package br.com.erudio.config
 
-import br.com.erudio.serialization.converter.YamlJackson2HttpMessageConverter
+import br.com.erudio.serilization.converter.YamlJackson2HttpMessageConverter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
@@ -24,9 +24,9 @@ class WebConfig : WebMvcConfigurer{
     override fun configureContentNegotiation(configurer: ContentNegotiationConfigurer) {
 
         configurer.favorParameter(false)
-                .ignoreAcceptHeader(false)
-                .useRegisteredExtensionsOnly(false)
-                .defaultContentType(MediaType.APPLICATION_JSON)
+            .ignoreAcceptHeader(false)
+            .useRegisteredExtensionsOnly(false)
+            .defaultContentType(MediaType.APPLICATION_JSON)
                 .mediaType("json", MediaType.APPLICATION_JSON)
                 .mediaType("xml", MediaType.APPLICATION_XML)
                 .mediaType("x-yaml", MEDIA_TYPE_APPLICATION_YML)
@@ -35,8 +35,8 @@ class WebConfig : WebMvcConfigurer{
     override fun addCorsMappings(registry: CorsRegistry) {
         val allowedOrigins = corsOriginPatterns.split(",").toTypedArray()
         registry.addMapping("/**")
-                .allowedMethods("*")
-                .allowedOrigins(*allowedOrigins)
-                .allowCredentials(true)
+            .allowedMethods("*")
+            .allowedOrigins(*allowedOrigins)
+            .allowCredentials(true)
     }
 }

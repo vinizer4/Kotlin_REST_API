@@ -1,12 +1,12 @@
 package br.com.erudio.unittests.mapper
 
-import br.com.erudio.unittests.mocks.MockPerson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import br.com.erudio.data.dto.v1.PersonDTO
+import br.com.erudio.data.vo.v1.PersonVO
 import br.com.erudio.mapper.DozerMapper
-import br.com.erudio.models.Person
+import br.com.erudio.model.Person
+import br.com.erudio.unittests.mocks.MockPerson
 
 class DozerMapperTest {
 
@@ -19,7 +19,7 @@ class DozerMapperTest {
 
     @Test
     fun parseEntityToVOTest() {
-        val output: PersonDTO = DozerMapper.parseObject(inputObject!!.mockEntity(), PersonDTO::class.java)
+        val output: PersonVO = DozerMapper.parseObject(inputObject!!.mockEntity(), PersonVO::class.java)
         assertEquals(0, output.key)
         assertEquals("First Name Test0", output.firstName)
         assertEquals("Last Name Test0", output.lastName)
@@ -29,10 +29,10 @@ class DozerMapperTest {
 
     @Test
     fun parseEntityListToVOListTest() {
-        val outputList: ArrayList<PersonDTO> =
-                DozerMapper.parseListObjects(inputObject!!.mockEntityList(), PersonDTO::class.java)
+        val outputList: ArrayList<PersonVO> =
+            DozerMapper.parseListObjects(inputObject!!.mockEntityList(), PersonVO::class.java)
 
-        val outputZero: PersonDTO = outputList[0]
+        val outputZero: PersonVO = outputList[0]
 
         assertEquals(0, outputZero.key)
         assertEquals("First Name Test0", outputZero.firstName)
@@ -40,14 +40,14 @@ class DozerMapperTest {
         assertEquals("Address Test0", outputZero.address)
         assertEquals("Male", outputZero.gender)
 
-        val outputSeven: PersonDTO = outputList[7]
+        val outputSeven: PersonVO = outputList[7]
         assertEquals(7.toLong(), outputSeven.key)
         assertEquals("First Name Test7", outputSeven.firstName)
         assertEquals("Last Name Test7", outputSeven.lastName)
         assertEquals("Address Test7", outputSeven.address)
         assertEquals("Female", outputSeven.gender)
 
-        val outputTwelve: PersonDTO = outputList[12]
+        val outputTwelve: PersonVO = outputList[12]
         assertEquals(12.toLong(), outputTwelve.key)
         assertEquals("First Name Test12", outputTwelve.firstName)
         assertEquals("Last Name Test12", outputTwelve.lastName)

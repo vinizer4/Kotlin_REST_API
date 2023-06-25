@@ -1,7 +1,7 @@
 package br.com.erudio.unittests.mockito.services
 
 import br.com.erudio.exceptions.RequiredObjectIsNullException
-import br.com.erudio.repositories.BookRepository
+import br.com.erudio.repository.BookRepository
 import br.com.erudio.services.BookService
 import br.com.erudio.unittests.mocks.MockBook
 import org.junit.jupiter.api.BeforeEach

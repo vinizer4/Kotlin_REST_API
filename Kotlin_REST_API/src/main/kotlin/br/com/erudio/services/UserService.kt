@@ -1,7 +1,6 @@
 package br.com.erudio.services
 
-
-import br.com.erudio.repositories.UserRepository
+import br.com.erudio.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

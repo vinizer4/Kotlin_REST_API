@@ -1,6 +1,7 @@
 package br.com.erudio.security.jwt
 
-
+import br.com.erudio.data.vo.v1.TokenVO
+import br.com.erudio.exceptions.InvalidJwtAuthenticationException
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
@@ -15,8 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
-import br.com.erudio.data.dto.v1.TokenDTO
-import br.com.erudio.exceptions.InvalidJwtAuthenticationException
 import java.util.*
 
 @Service
@@ -39,12 +38,12 @@ class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.toByteArray())
     }
 
-    fun createAccessToken(username: String, roles: List<String?>) : TokenDTO {
+    fun createAccessToken(username: String, roles: List<String?>) : TokenVO {
         val now = Date()
         val validity = Date(now.time + validityInMilliseconds)
         val accessToken = getAccessToken(username, roles, now, validity)
         val refreshToken = getRefreshToken(username, roles, now)
-        return TokenDTO(
+        return TokenVO(
             username = username,
             authenticated = true,
             accessToken = accessToken,
@@ -54,7 +53,7 @@ class JwtTokenProvider {
         )
     }
 
-    fun refreshToken(refreshToken: String) : TokenDTO {
+    fun refreshToken(refreshToken: String) : TokenVO {
         var token: String = ""
         if(refreshToken.contains("Bearer ")) token = refreshToken.substring("Bearer ".length)
         val verifier: JWTVerifier = JWT.require(algorithm).build()

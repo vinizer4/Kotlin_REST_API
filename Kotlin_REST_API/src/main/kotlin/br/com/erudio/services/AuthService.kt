@@ -1,8 +1,8 @@
 package br.com.erudio.services
 
-import br.com.erudio.data.dto.v1.AccountCredentialsDTO
-import br.com.erudio.data.dto.v1.TokenDTO
-import br.com.erudio.repositories.UserRepository
+import br.com.erudio.data.vo.v1.AccountCredentialsVO
+import br.com.erudio.data.vo.v1.TokenVO
+import br.com.erudio.repository.UserRepository
 import br.com.erudio.security.jwt.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -28,14 +28,14 @@ class AuthService {
 
     private val logger = Logger.getLogger(AuthService::class.java.name)
 
-    fun signin(data: AccountCredentialsDTO) : ResponseEntity<*> {
+    fun signin(data: AccountCredentialsVO) : ResponseEntity<*> {
         logger.info("Trying log user ${data.username}")
         return try {
             val username = data.username
             val password = data.password
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
             val user = repository.findByUsername(username)
-            val tokenResponse: TokenDTO = if (user != null) {
+            val tokenResponse: TokenVO = if (user != null) {
                 tokenProvider.createAccessToken(username!!, user.roles)
             } else {
                 throw UsernameNotFoundException("Username $username not found!")
@@ -50,7 +50,7 @@ class AuthService {
         logger.info("Trying get refresh token to user $username")
 
         val user = repository.findByUsername(username)
-        val tokenResponse: TokenDTO = if (user != null) {
+        val tokenResponse: TokenVO = if (user != null) {
             tokenProvider.refreshToken(refreshToken)
         } else {
             throw UsernameNotFoundException("Username $username not found!")

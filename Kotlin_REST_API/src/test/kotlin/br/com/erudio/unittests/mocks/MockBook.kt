@@ -1,8 +1,7 @@
 package br.com.erudio.unittests.mocks
 
-import br.com.erudio.data.dto.v1.BookDTO
-import br.com.erudio.models.Book
-
+import br.com.erudio.data.vo.v1.BookVO
+import br.com.erudio.model.Book
 
 class MockBook {
 
@@ -14,8 +13,8 @@ class MockBook {
         return books
     }
 
-    fun mockVOList(): ArrayList<BookDTO> {
-        val books: ArrayList<BookDTO> = ArrayList()
+    fun mockVOList(): ArrayList<BookVO> {
+        val books: ArrayList<BookVO> = ArrayList()
         for (i in 0..13) {
             books.add(mockVO(i))
         }
@@ -29,7 +28,7 @@ class MockBook {
             title = "Some Title$number"
         )
 
-    fun mockVO(number: Int) = BookDTO(
+    fun mockVO(number: Int) = BookVO(
             key = number.toLong(),
             author = "Some Author$number",
             price = 25.0,
